@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package tutorial;
+
+message User
+{
+    optional string name = 1;
+    optional PhoneNumber phone = 2;
+    optional string text = 3;
+}
+
+message PhoneNumber 
+{
+    optional string number = 1;
+    optional int32 type = 2;
+}
+
+message UserTextList
+{
+    repeated User users = 1;
+}
