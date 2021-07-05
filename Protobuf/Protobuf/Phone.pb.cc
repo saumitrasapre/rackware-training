@@ -19,8 +19,8 @@ PROTOBUF_PRAGMA_INIT_SEG
 namespace tutorial {
 constexpr User::User(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , text_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  : usernotes_()
+  , name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , phone_(nullptr){}
 struct UserDefaultTypeInternal {
   constexpr UserDefaultTypeInternal()
@@ -31,6 +31,18 @@ struct UserDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UserDefaultTypeInternal _User_default_instance_;
+constexpr Notes::Notes(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : text_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+struct NotesDefaultTypeInternal {
+  constexpr NotesDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~NotesDefaultTypeInternal() {}
+  union {
+    Notes _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT NotesDefaultTypeInternal _Notes_default_instance_;
 constexpr PhoneNumber::PhoneNumber(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : number_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
@@ -57,7 +69,7 @@ struct UserTextListDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT UserTextListDefaultTypeInternal _UserTextList_default_instance_;
 }  // namespace tutorial
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_Phone_2eproto[3];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_Phone_2eproto[4];
 static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_Phone_2eproto = nullptr;
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_Phone_2eproto = nullptr;
 
@@ -69,10 +81,17 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_Phone_2eproto::offsets[] PROTO
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::tutorial::User, name_),
   PROTOBUF_FIELD_OFFSET(::tutorial::User, phone_),
-  PROTOBUF_FIELD_OFFSET(::tutorial::User, text_),
+  PROTOBUF_FIELD_OFFSET(::tutorial::User, usernotes_),
   0,
-  2,
   1,
+  ~0u,
+  PROTOBUF_FIELD_OFFSET(::tutorial::Notes, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::tutorial::Notes, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::tutorial::Notes, text_),
+  0,
   PROTOBUF_FIELD_OFFSET(::tutorial::PhoneNumber, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::tutorial::PhoneNumber, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -91,29 +110,32 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_Phone_2eproto::offsets[] PROTO
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, 8, sizeof(::tutorial::User)},
-  { 11, 18, sizeof(::tutorial::PhoneNumber)},
-  { 20, -1, sizeof(::tutorial::UserTextList)},
+  { 11, 17, sizeof(::tutorial::Notes)},
+  { 18, 25, sizeof(::tutorial::PhoneNumber)},
+  { 27, -1, sizeof(::tutorial::UserTextList)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::tutorial::_User_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::tutorial::_Notes_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::tutorial::_PhoneNumber_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::tutorial::_UserTextList_default_instance_),
 };
 
 const char descriptor_table_protodef_Phone_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\013Phone.proto\022\010tutorial\"s\n\004User\022\021\n\004name\030"
+  "\n\013Phone.proto\022\010tutorial\"{\n\004User\022\021\n\004name\030"
   "\001 \001(\tH\000\210\001\001\022)\n\005phone\030\002 \001(\0132\025.tutorial.Pho"
-  "neNumberH\001\210\001\001\022\021\n\004text\030\003 \001(\tH\002\210\001\001B\007\n\005_nam"
-  "eB\010\n\006_phoneB\007\n\005_text\"I\n\013PhoneNumber\022\023\n\006n"
-  "umber\030\001 \001(\tH\000\210\001\001\022\021\n\004type\030\002 \001(\005H\001\210\001\001B\t\n\007_"
-  "numberB\007\n\005_type\"-\n\014UserTextList\022\035\n\005users"
-  "\030\001 \003(\0132\016.tutorial.Userb\006proto3"
+  "neNumberH\001\210\001\001\022\"\n\tusernotes\030\003 \003(\0132\017.tutor"
+  "ial.NotesB\007\n\005_nameB\010\n\006_phone\"#\n\005Notes\022\021\n"
+  "\004text\030\001 \001(\tH\000\210\001\001B\007\n\005_text\"I\n\013PhoneNumber"
+  "\022\023\n\006number\030\001 \001(\tH\000\210\001\001\022\021\n\004type\030\002 \001(\005H\001\210\001\001"
+  "B\t\n\007_numberB\007\n\005_type\"-\n\014UserTextList\022\035\n\005"
+  "users\030\001 \003(\0132\016.tutorial.Userb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_Phone_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Phone_2eproto = {
-  false, false, 270, descriptor_table_protodef_Phone_2eproto, "Phone.proto", 
-  &descriptor_table_Phone_2eproto_once, nullptr, 0, 3,
+  false, false, 315, descriptor_table_protodef_Phone_2eproto, "Phone.proto", 
+  &descriptor_table_Phone_2eproto_once, nullptr, 0, 4,
   schemas, file_default_instances, TableStruct_Phone_2eproto::offsets,
   file_level_metadata_Phone_2eproto, file_level_enum_descriptors_Phone_2eproto, file_level_service_descriptors_Phone_2eproto,
 };
@@ -135,9 +157,6 @@ class User::_Internal {
   }
   static const ::tutorial::PhoneNumber& phone(const User* msg);
   static void set_has_phone(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
-  }
-  static void set_has_text(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
   }
 };
@@ -148,7 +167,8 @@ User::_Internal::phone(const User* msg) {
 }
 User::User(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+  usernotes_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -157,16 +177,12 @@ User::User(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 }
 User::User(const User& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      _has_bits_(from._has_bits_) {
+      _has_bits_(from._has_bits_),
+      usernotes_(from.usernotes_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (from._internal_has_name()) {
     name_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_name(), 
-      GetArenaForAllocation());
-  }
-  text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (from._internal_has_text()) {
-    text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_text(), 
       GetArenaForAllocation());
   }
   if (from._internal_has_phone()) {
@@ -179,7 +195,6 @@ User::User(const User& from)
 
 inline void User::SharedCtor() {
 name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 phone_ = nullptr;
 }
 
@@ -193,7 +208,6 @@ User::~User() {
 inline void User::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  text_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (this != internal_default_instance()) delete phone_;
 }
 
@@ -213,15 +227,13 @@ void User::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  usernotes_.Clear();
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       name_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
-      text_.ClearNonDefaultToEmpty();
-    }
-    if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(phone_ != nullptr);
       phone_->Clear();
     }
@@ -253,13 +265,16 @@ const char* User::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // optional string text = 3;
+      // repeated .tutorial.Notes usernotes = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          auto str = _internal_mutable_text();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "tutorial.User.text"));
-          CHK_(ptr);
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_usernotes(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -310,14 +325,12 @@ failure:
         2, _Internal::phone(this), target, stream);
   }
 
-  // optional string text = 3;
-  if (_internal_has_text()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_text().data(), static_cast<int>(this->_internal_text().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "tutorial.User.text");
-    target = stream->WriteStringMaybeAliased(
-        3, this->_internal_text(), target);
+  // repeated .tutorial.Notes usernotes = 3;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_usernotes_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, this->_internal_usernotes(i), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -336,8 +349,15 @@ size_t User::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // repeated .tutorial.Notes usernotes = 3;
+  total_size += 1UL * this->_internal_usernotes_size();
+  for (const auto& msg : this->usernotes_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x00000003u) {
     // optional string name = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -345,15 +365,8 @@ size_t User::ByteSizeLong() const {
           this->_internal_name());
     }
 
-    // optional string text = 3;
-    if (cached_has_bits & 0x00000002u) {
-      total_size += 1 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-          this->_internal_text());
-    }
-
     // optional .tutorial.PhoneNumber phone = 2;
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *phone_);
@@ -388,15 +401,13 @@ void User::MergeFrom(const User& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
+  usernotes_.MergeFrom(from.usernotes_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_name(from._internal_name());
     }
     if (cached_has_bits & 0x00000002u) {
-      _internal_set_text(from._internal_text());
-    }
-    if (cached_has_bits & 0x00000004u) {
       _internal_mutable_phone()->::tutorial::PhoneNumber::MergeFrom(from._internal_phone());
     }
   }
@@ -418,15 +429,11 @@ void User::InternalSwap(User* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
+  usernotes_.InternalSwap(&other->usernotes_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &name_, GetArenaForAllocation(),
       &other->name_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &text_, GetArenaForAllocation(),
-      &other->text_, other->GetArenaForAllocation()
   );
   swap(phone_, other->phone_);
 }
@@ -435,6 +442,219 @@ void User::InternalSwap(User* other) {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_Phone_2eproto_getter, &descriptor_table_Phone_2eproto_once,
       file_level_metadata_Phone_2eproto[0]);
+}
+
+// ===================================================================
+
+class Notes::_Internal {
+ public:
+  using HasBits = decltype(std::declval<Notes>()._has_bits_);
+  static void set_has_text(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+Notes::Notes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:tutorial.Notes)
+}
+Notes::Notes(const Notes& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _has_bits_(from._has_bits_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_text()) {
+    text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_text(), 
+      GetArenaForAllocation());
+  }
+  // @@protoc_insertion_point(copy_constructor:tutorial.Notes)
+}
+
+inline void Notes::SharedCtor() {
+text_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+Notes::~Notes() {
+  // @@protoc_insertion_point(destructor:tutorial.Notes)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void Notes::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  text_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void Notes::ArenaDtor(void* object) {
+  Notes* _this = reinterpret_cast< Notes* >(object);
+  (void)_this;
+}
+void Notes::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void Notes::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void Notes::Clear() {
+// @@protoc_insertion_point(message_clear_start:tutorial.Notes)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    text_.ClearNonDefaultToEmpty();
+  }
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Notes::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional string text = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          auto str = _internal_mutable_text();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "tutorial.Notes.text"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag == 0) || ((tag & 7) == 4)) {
+          CHK_(ptr);
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* Notes::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:tutorial.Notes)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // optional string text = 1;
+  if (_internal_has_text()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_text().data(), static_cast<int>(this->_internal_text().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "tutorial.Notes.text");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_text(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:tutorial.Notes)
+  return target;
+}
+
+size_t Notes::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:tutorial.Notes)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // optional string text = 1;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_text());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Notes::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Notes::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Notes::GetClassData() const { return &_class_data_; }
+
+void Notes::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
+  static_cast<Notes *>(to)->MergeFrom(
+      static_cast<const Notes &>(from));
+}
+
+
+void Notes::MergeFrom(const Notes& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:tutorial.Notes)
+  GOOGLE_DCHECK_NE(&from, this);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_has_text()) {
+    _internal_set_text(from._internal_text());
+  }
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Notes::CopyFrom(const Notes& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:tutorial.Notes)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Notes::IsInitialized() const {
+  return true;
+}
+
+void Notes::InternalSwap(Notes* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &text_, GetArenaForAllocation(),
+      &other->text_, other->GetArenaForAllocation()
+  );
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Notes::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_Phone_2eproto_getter, &descriptor_table_Phone_2eproto_once,
+      file_level_metadata_Phone_2eproto[1]);
 }
 
 // ===================================================================
@@ -684,7 +904,7 @@ void PhoneNumber::InternalSwap(PhoneNumber* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata PhoneNumber::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_Phone_2eproto_getter, &descriptor_table_Phone_2eproto_once,
-      file_level_metadata_Phone_2eproto[1]);
+      file_level_metadata_Phone_2eproto[2]);
 }
 
 // ===================================================================
@@ -874,7 +1094,7 @@ void UserTextList::InternalSwap(UserTextList* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata UserTextList::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_Phone_2eproto_getter, &descriptor_table_Phone_2eproto_once,
-      file_level_metadata_Phone_2eproto[2]);
+      file_level_metadata_Phone_2eproto[3]);
 }
 
 // @@protoc_insertion_point(namespace_scope)
@@ -882,6 +1102,9 @@ void UserTextList::InternalSwap(UserTextList* other) {
 PROTOBUF_NAMESPACE_OPEN
 template<> PROTOBUF_NOINLINE ::tutorial::User* Arena::CreateMaybeMessage< ::tutorial::User >(Arena* arena) {
   return Arena::CreateMessageInternal< ::tutorial::User >(arena);
+}
+template<> PROTOBUF_NOINLINE ::tutorial::Notes* Arena::CreateMaybeMessage< ::tutorial::Notes >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::tutorial::Notes >(arena);
 }
 template<> PROTOBUF_NOINLINE ::tutorial::PhoneNumber* Arena::CreateMaybeMessage< ::tutorial::PhoneNumber >(Arena* arena) {
   return Arena::CreateMessageInternal< ::tutorial::PhoneNumber >(arena);

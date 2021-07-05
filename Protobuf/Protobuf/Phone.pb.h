@@ -46,7 +46,7 @@ struct TableStruct_Phone_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[3]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[4]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -54,6 +54,9 @@ struct TableStruct_Phone_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Phone_2eproto;
 namespace tutorial {
+class Notes;
+struct NotesDefaultTypeInternal;
+extern NotesDefaultTypeInternal _Notes_default_instance_;
 class PhoneNumber;
 struct PhoneNumberDefaultTypeInternal;
 extern PhoneNumberDefaultTypeInternal _PhoneNumber_default_instance_;
@@ -65,6 +68,7 @@ struct UserTextListDefaultTypeInternal;
 extern UserTextListDefaultTypeInternal _UserTextList_default_instance_;
 }  // namespace tutorial
 PROTOBUF_NAMESPACE_OPEN
+template<> ::tutorial::Notes* Arena::CreateMaybeMessage<::tutorial::Notes>(Arena*);
 template<> ::tutorial::PhoneNumber* Arena::CreateMaybeMessage<::tutorial::PhoneNumber>(Arena*);
 template<> ::tutorial::User* Arena::CreateMaybeMessage<::tutorial::User>(Arena*);
 template<> ::tutorial::UserTextList* Arena::CreateMaybeMessage<::tutorial::UserTextList>(Arena*);
@@ -188,10 +192,28 @@ class User final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kUsernotesFieldNumber = 3,
     kNameFieldNumber = 1,
-    kTextFieldNumber = 3,
     kPhoneFieldNumber = 2,
   };
+  // repeated .tutorial.Notes usernotes = 3;
+  int usernotes_size() const;
+  private:
+  int _internal_usernotes_size() const;
+  public:
+  void clear_usernotes();
+  ::tutorial::Notes* mutable_usernotes(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tutorial::Notes >*
+      mutable_usernotes();
+  private:
+  const ::tutorial::Notes& _internal_usernotes(int index) const;
+  ::tutorial::Notes* _internal_add_usernotes();
+  public:
+  const ::tutorial::Notes& usernotes(int index) const;
+  ::tutorial::Notes* add_usernotes();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tutorial::Notes >&
+      usernotes() const;
+
   // optional string name = 1;
   bool has_name() const;
   private:
@@ -208,24 +230,6 @@ class User final :
   const std::string& _internal_name() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_name(const std::string& value);
   std::string* _internal_mutable_name();
-  public:
-
-  // optional string text = 3;
-  bool has_text() const;
-  private:
-  bool _internal_has_text() const;
-  public:
-  void clear_text();
-  const std::string& text() const;
-  template <typename ArgT0 = const std::string&, typename... ArgT>
-  void set_text(ArgT0&& arg0, ArgT... args);
-  std::string* mutable_text();
-  PROTOBUF_MUST_USE_RESULT std::string* release_text();
-  void set_allocated_text(std::string* text);
-  private:
-  const std::string& _internal_text() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_text(const std::string& value);
-  std::string* _internal_mutable_text();
   public:
 
   // optional .tutorial.PhoneNumber phone = 2;
@@ -255,9 +259,158 @@ class User final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tutorial::Notes > usernotes_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr text_;
   ::tutorial::PhoneNumber* phone_;
+  friend struct ::TableStruct_Phone_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Notes final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:tutorial.Notes) */ {
+ public:
+  inline Notes() : Notes(nullptr) {}
+  ~Notes() override;
+  explicit constexpr Notes(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Notes(const Notes& from);
+  Notes(Notes&& from) noexcept
+    : Notes() {
+    *this = ::std::move(from);
+  }
+
+  inline Notes& operator=(const Notes& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Notes& operator=(Notes&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Notes& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Notes* internal_default_instance() {
+    return reinterpret_cast<const Notes*>(
+               &_Notes_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(Notes& a, Notes& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Notes* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Notes* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Notes* New() const final {
+    return new Notes();
+  }
+
+  Notes* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Notes>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Notes& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const Notes& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Notes* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "tutorial.Notes";
+  }
+  protected:
+  explicit Notes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kTextFieldNumber = 1,
+  };
+  // optional string text = 1;
+  bool has_text() const;
+  private:
+  bool _internal_has_text() const;
+  public:
+  void clear_text();
+  const std::string& text() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_text(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_text();
+  PROTOBUF_MUST_USE_RESULT std::string* release_text();
+  void set_allocated_text(std::string* text);
+  private:
+  const std::string& _internal_text() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_text(const std::string& value);
+  std::string* _internal_mutable_text();
+  public:
+
+  // @@protoc_insertion_point(class_scope:tutorial.Notes)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr text_;
   friend struct ::TableStruct_Phone_2eproto;
 };
 // -------------------------------------------------------------------
@@ -306,7 +459,7 @@ class PhoneNumber final :
                &_PhoneNumber_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(PhoneNumber& a, PhoneNumber& b) {
     a.Swap(&b);
@@ -470,7 +623,7 @@ class UserTextList final :
                &_UserTextList_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(UserTextList& a, UserTextList& b) {
     a.Swap(&b);
@@ -643,7 +796,7 @@ inline void User::set_allocated_name(std::string* name) {
 
 // optional .tutorial.PhoneNumber phone = 2;
 inline bool User::_internal_has_phone() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
   PROTOBUF_ASSUME(!value || phone_ != nullptr);
   return value;
 }
@@ -652,7 +805,7 @@ inline bool User::has_phone() const {
 }
 inline void User::clear_phone() {
   if (phone_ != nullptr) phone_->Clear();
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline const ::tutorial::PhoneNumber& User::_internal_phone() const {
   const ::tutorial::PhoneNumber* p = phone_;
@@ -670,14 +823,14 @@ inline void User::unsafe_arena_set_allocated_phone(
   }
   phone_ = phone;
   if (phone) {
-    _has_bits_[0] |= 0x00000004u;
+    _has_bits_[0] |= 0x00000002u;
   } else {
-    _has_bits_[0] &= ~0x00000004u;
+    _has_bits_[0] &= ~0x00000002u;
   }
   // @@protoc_insertion_point(field_unsafe_arena_set_allocated:tutorial.User.phone)
 }
 inline ::tutorial::PhoneNumber* User::release_phone() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000002u;
   ::tutorial::PhoneNumber* temp = phone_;
   phone_ = nullptr;
 #ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
@@ -693,13 +846,13 @@ inline ::tutorial::PhoneNumber* User::release_phone() {
 }
 inline ::tutorial::PhoneNumber* User::unsafe_arena_release_phone() {
   // @@protoc_insertion_point(field_release:tutorial.User.phone)
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000002u;
   ::tutorial::PhoneNumber* temp = phone_;
   phone_ = nullptr;
   return temp;
 }
 inline ::tutorial::PhoneNumber* User::_internal_mutable_phone() {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000002u;
   if (phone_ == nullptr) {
     auto* p = CreateMaybeMessage<::tutorial::PhoneNumber>(GetArenaForAllocation());
     phone_ = p;
@@ -723,70 +876,114 @@ inline void User::set_allocated_phone(::tutorial::PhoneNumber* phone) {
       phone = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
           message_arena, phone, submessage_arena);
     }
-    _has_bits_[0] |= 0x00000004u;
+    _has_bits_[0] |= 0x00000002u;
   } else {
-    _has_bits_[0] &= ~0x00000004u;
+    _has_bits_[0] &= ~0x00000002u;
   }
   phone_ = phone;
   // @@protoc_insertion_point(field_set_allocated:tutorial.User.phone)
 }
 
-// optional string text = 3;
-inline bool User::_internal_has_text() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+// repeated .tutorial.Notes usernotes = 3;
+inline int User::_internal_usernotes_size() const {
+  return usernotes_.size();
+}
+inline int User::usernotes_size() const {
+  return _internal_usernotes_size();
+}
+inline void User::clear_usernotes() {
+  usernotes_.Clear();
+}
+inline ::tutorial::Notes* User::mutable_usernotes(int index) {
+  // @@protoc_insertion_point(field_mutable:tutorial.User.usernotes)
+  return usernotes_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tutorial::Notes >*
+User::mutable_usernotes() {
+  // @@protoc_insertion_point(field_mutable_list:tutorial.User.usernotes)
+  return &usernotes_;
+}
+inline const ::tutorial::Notes& User::_internal_usernotes(int index) const {
+  return usernotes_.Get(index);
+}
+inline const ::tutorial::Notes& User::usernotes(int index) const {
+  // @@protoc_insertion_point(field_get:tutorial.User.usernotes)
+  return _internal_usernotes(index);
+}
+inline ::tutorial::Notes* User::_internal_add_usernotes() {
+  return usernotes_.Add();
+}
+inline ::tutorial::Notes* User::add_usernotes() {
+  ::tutorial::Notes* _add = _internal_add_usernotes();
+  // @@protoc_insertion_point(field_add:tutorial.User.usernotes)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::tutorial::Notes >&
+User::usernotes() const {
+  // @@protoc_insertion_point(field_list:tutorial.User.usernotes)
+  return usernotes_;
+}
+
+// -------------------------------------------------------------------
+
+// Notes
+
+// optional string text = 1;
+inline bool Notes::_internal_has_text() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool User::has_text() const {
+inline bool Notes::has_text() const {
   return _internal_has_text();
 }
-inline void User::clear_text() {
+inline void Notes::clear_text() {
   text_.ClearToEmpty();
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000001u;
 }
-inline const std::string& User::text() const {
-  // @@protoc_insertion_point(field_get:tutorial.User.text)
+inline const std::string& Notes::text() const {
+  // @@protoc_insertion_point(field_get:tutorial.Notes.text)
   return _internal_text();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void User::set_text(ArgT0&& arg0, ArgT... args) {
- _has_bits_[0] |= 0x00000002u;
+void Notes::set_text(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000001u;
  text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:tutorial.User.text)
+  // @@protoc_insertion_point(field_set:tutorial.Notes.text)
 }
-inline std::string* User::mutable_text() {
+inline std::string* Notes::mutable_text() {
   std::string* _s = _internal_mutable_text();
-  // @@protoc_insertion_point(field_mutable:tutorial.User.text)
+  // @@protoc_insertion_point(field_mutable:tutorial.Notes.text)
   return _s;
 }
-inline const std::string& User::_internal_text() const {
+inline const std::string& Notes::_internal_text() const {
   return text_.Get();
 }
-inline void User::_internal_set_text(const std::string& value) {
-  _has_bits_[0] |= 0x00000002u;
+inline void Notes::_internal_set_text(const std::string& value) {
+  _has_bits_[0] |= 0x00000001u;
   text_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
-inline std::string* User::_internal_mutable_text() {
-  _has_bits_[0] |= 0x00000002u;
+inline std::string* Notes::_internal_mutable_text() {
+  _has_bits_[0] |= 0x00000001u;
   return text_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
-inline std::string* User::release_text() {
-  // @@protoc_insertion_point(field_release:tutorial.User.text)
+inline std::string* Notes::release_text() {
+  // @@protoc_insertion_point(field_release:tutorial.Notes.text)
   if (!_internal_has_text()) {
     return nullptr;
   }
-  _has_bits_[0] &= ~0x00000002u;
+  _has_bits_[0] &= ~0x00000001u;
   return text_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
-inline void User::set_allocated_text(std::string* text) {
+inline void Notes::set_allocated_text(std::string* text) {
   if (text != nullptr) {
-    _has_bits_[0] |= 0x00000002u;
+    _has_bits_[0] |= 0x00000001u;
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    _has_bits_[0] &= ~0x00000001u;
   }
   text_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), text,
       GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set_allocated:tutorial.User.text)
+  // @@protoc_insertion_point(field_set_allocated:tutorial.Notes.text)
 }
 
 // -------------------------------------------------------------------
@@ -926,6 +1123,8 @@ UserTextList::users() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

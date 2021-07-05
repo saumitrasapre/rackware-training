@@ -17,11 +17,23 @@ void takePersonInput(tutorial::User* user)
     cout << "Enter the Person's phone number: " << endl;
     getline(cin, number);
     tutorial::PhoneNumber* num = new tutorial::PhoneNumber();
+    
     num->set_number(number);
     user->set_allocated_phone(num);
-    cout << "Enter the message you want to store: " << endl;
-    getline(cin, msg);
-    user->set_text(msg);
+    cout << "Enter the message you want to store: (LEAVE BLANK TO EXIT) " << endl;
+    while (true)
+    {
+        cout << "> ";
+        getline(cin, msg);
+        if (msg.empty())
+        {
+            break;
+        }
+        tutorial::Notes* note = user->add_usernotes();
+        note->set_text(msg);      
+    }
+    
+    
 }
 
 void showPersonOutput(tutorial::UserTextList& userlist)
@@ -32,7 +44,14 @@ void showPersonOutput(tutorial::UserTextList& userlist)
         cout << "Person Name: " << u.name()<<endl;
         tutorial::PhoneNumber num = u.phone();
         cout << "Phone number is: " << num.number() << endl;
-        cout << "Message: " << u.text() << endl;
+        for (int j = 0; j < u.usernotes_size(); j++)
+        {
+            cout << "Note " << j + 1 << endl;
+            cout << "----------------------------------" << endl;
+            cout << u.usernotes(j).text() << endl;
+            cout << "-------------------------------" << endl;
+
+        }
         SPACER;
     }
 }
