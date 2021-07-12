@@ -98,8 +98,8 @@ void processNewRequest(int &nSocket)
 int main()
 {
     int nRet = 0;
-    //Initialise the WSA variables (for windows)
 
+    //Initialise the WSA variables (for windows)
     WSADATA ws;
     if (WSAStartup(MAKEWORD(2, 2), &ws) < 0)
     {
