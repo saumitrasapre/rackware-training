@@ -1,0 +1,4 @@
+﻿  Protobuf-Socket-Server.cpp
+D:\Code\Protobuf-Socket\Protobuf-Socket-Server\Protobuf-Socket-Server\Protobuf-Socket-Server.cpp(72,27): warning C4244: 'initializing': conversion from 'SOCKET' to 'int', possible loss of data
+D:\Code\Protobuf-Socket\Protobuf-Socket-Server\Protobuf-Socket-Server\Protobuf-Socket-Server.cpp(117,17): warning C4244: 'initializing': conversion from 'SOCKET' to 'int', possible loss of data
+  Protobuf-Socket-Server.vcxproj -> D:\Code\Protobuf-Socket\Protobuf-Socket-Server\x64\Debug\Protobuf-Socket-Server.exe

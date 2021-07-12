@@ -1,0 +1,3 @@
+﻿  Protobuf-Socket-Client.cpp
+D:\Code\Protobuf-Socket\Protobuf-Socket-Client\Protobuf-Socket-Client\Protobuf-Socket-Client.cpp(28,23): warning C4244: 'initializing': conversion from 'SOCKET' to 'int', possible loss of data
+  Protobuf-Socket-Client.vcxproj -> D:\Code\Protobuf-Socket\Protobuf-Socket-Client\x64\Debug\Protobuf-Socket-Client.exe
