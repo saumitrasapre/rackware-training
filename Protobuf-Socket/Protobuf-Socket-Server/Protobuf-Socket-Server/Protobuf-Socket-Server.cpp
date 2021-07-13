@@ -30,6 +30,7 @@ void processNewMessage(int& nClientSocket, tutorial::UserTextList& userlist)
     cout << "Processing new message from client ID: "<<nClientSocket << endl;
     string buffer(4096,0);
     int nRet = recv(nClientSocket, &buffer[0], buffer.size(), 0);
+    cout << nRet << endl;
 
     userlist.ParseFromString(buffer);
     if (nRet < 0)

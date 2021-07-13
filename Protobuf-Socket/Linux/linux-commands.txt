@@ -1,0 +1,12 @@
+TO COMPILE .proto FILES
+
+protoc –I=$SRC_DIR --cpp_out=$DST_DIR $SCR_DIR/protofile.proto
+OR
+protoc --cpp_out=. protofile.proto
+
+
+TO COMPILE C++ CODE
+
+g++ -std=c++17 C_file.cpp protofile.pb.cc -o binaryfilename `pkg-config --cflags --libs protobuf`
+
+(remember to use `)

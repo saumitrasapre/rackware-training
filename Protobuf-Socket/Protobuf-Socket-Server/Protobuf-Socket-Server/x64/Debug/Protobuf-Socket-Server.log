@@ -1,5 +1,5 @@
 ﻿  Protobuf-Socket-Server.cpp
 D:\Code\Protobuf-Socket\Protobuf-Socket-Server\Protobuf-Socket-Server\Protobuf-Socket-Server.cpp(32,64): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-D:\Code\Protobuf-Socket\Protobuf-Socket-Server\Protobuf-Socket-Server\Protobuf-Socket-Server.cpp(106,27): warning C4244: 'initializing': conversion from 'SOCKET' to 'int', possible loss of data
-D:\Code\Protobuf-Socket\Protobuf-Socket-Server\Protobuf-Socket-Server\Protobuf-Socket-Server.cpp(159,17): warning C4244: 'initializing': conversion from 'SOCKET' to 'int', possible loss of data
+D:\Code\Protobuf-Socket\Protobuf-Socket-Server\Protobuf-Socket-Server\Protobuf-Socket-Server.cpp(107,27): warning C4244: 'initializing': conversion from 'SOCKET' to 'int', possible loss of data
+D:\Code\Protobuf-Socket\Protobuf-Socket-Server\Protobuf-Socket-Server\Protobuf-Socket-Server.cpp(160,17): warning C4244: 'initializing': conversion from 'SOCKET' to 'int', possible loss of data
   Protobuf-Socket-Server.vcxproj -> D:\Code\Protobuf-Socket\Protobuf-Socket-Server\x64\Debug\Protobuf-Socket-Server.exe
