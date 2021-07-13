@@ -1,5 +1,7 @@
 #include <iostream>
+#include "Phone.pb.h"
 #include <winsock.h>
+#include <cstring>
 
 #define SEPARATOR cout<<"============================================="<<endl
 #define PORT 9900   
@@ -7,8 +9,42 @@ using namespace std;
 
 struct sockaddr_in srv;
 
+void takePersonInput(tutorial::User* user)
+{
+    //Function to accept user input which includes name, phone number and a list of messages
+    //Stores information in tutorial::User object
+    string name, number, msg;
+    cout << "Enter the Person's name: " << endl;
+    getline(cin, name);
+    user->set_name(name);
+    cout << "Enter the Person's phone number: " << endl;
+    getline(cin, number);
+    tutorial::PhoneNumber* num = new tutorial::PhoneNumber();
+
+    num->set_number(number);
+    user->set_allocated_phone(num);
+    cout << "Enter the message you want to store: (LEAVE BLANK TO EXIT) " << endl;
+    while (true)
+    {
+        cout << "> ";
+        getline(cin, msg);
+        if (msg.empty())
+        {
+            break;
+        }
+        tutorial::Notes* note = user->add_usernotes();
+        note->set_text(msg);
+    }
+}
+
+
+
 int main()
 {
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+    tutorial::UserTextList users;
+
     int nRet = 0;
     //Initialise the WSA variables (for windows)
 
@@ -23,7 +59,8 @@ int main()
     {
         cout << "WSA initialised... " << endl;
     }
-    
+
+
     //Initialising the socket
     int nClientSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     /*
@@ -69,7 +106,15 @@ int main()
         cout << "SERVER: "<<buff << endl;
 
         //Now send messages to server
-        while (TRUE)
+       // while (true)
+       // {
+            takePersonInput(users.add_users());
+            string buffer;
+            users.AppendToString(&buffer);
+            send(nClientSocket, buffer.c_str(), buffer.size(), 0);
+        //}
+
+      /*  while (TRUE)
         {
             cout << "Enter message: ";
             fgets(buff, 256, stdin);
@@ -78,7 +123,7 @@ int main()
             recv(nClientSocket, buff, sizeof(buff), 0);
             cout << "SERVER: " << buff << endl;
 
-        }
+        }*/
     }
 
 

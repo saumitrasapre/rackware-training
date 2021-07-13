@@ -1,0 +1,11 @@
+Protobuf/Debug/
+Protobuf/Dependencies/
+Protobuf/Protobuf.sln
+Protobuf/x64/
+Protobuf/.vs/
+
+Protobuf-Socket/Protobuf-Socket-Client/.vs/
+Protobuf-Socket/Protobuf-Socket-Client/x64/
+
+Protobuf-Socket/Protobuf-Socket-Server/.vs/
+Protobuf-Socket/Protobuf-Socket-Server/x64/

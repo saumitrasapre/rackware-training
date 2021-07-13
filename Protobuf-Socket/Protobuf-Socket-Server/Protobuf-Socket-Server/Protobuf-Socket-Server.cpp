@@ -1,5 +1,6 @@
 #include <iostream>
 #include <winsock.h>
+#include "Phone.pb.h"
 #include <cstring>
 
 #define SEPARATOR cout<<"============================================="<<endl
@@ -11,12 +12,26 @@ fd_set fr, fw, fe;
 int nMaxFd;
 int nClientArr[5];
 
+hostent* getHostDetails()
+{
+    struct hostent* remoteHost;
+    //Getting the Host Name
+    char hostName[256] = "";
+    int nRet = gethostname(hostName, sizeof(hostName));
+    cout <<"Host Name: "<< hostName << endl;
+    //Using the name to get host IP address
 
-void processNewMessage(int& nClientSocket)
+    remoteHost = gethostbyname(hostName);
+    return remoteHost;
+}
+
+void processNewMessage(int& nClientSocket, tutorial::UserTextList& userlist)
 {
     cout << "Processing new message from client ID: "<<nClientSocket << endl;
-    char buf[256] = "";
-    int nRet = recv(nClientSocket, buf, 256, 0);
+    string buffer(4096,0);
+    int nRet = recv(nClientSocket, &buffer[0], buffer.size(), 0);
+
+    userlist.ParseFromString(buffer);
     if (nRet < 0)
     {
         cout << "Error receiving message from client... Closing socket" << endl;
@@ -32,19 +47,38 @@ void processNewMessage(int& nClientSocket)
     }
     else
     {
-        cout << "CLIENT: " << buf << endl;
+        for (int i = 0; i < userlist.users_size(); i++)
+        {
+            SEPARATOR;
+            tutorial::User u = userlist.users(i);
+            cout << "Person Name: " << u.name() << endl;
+            tutorial::PhoneNumber num = u.phone();
+            cout << "Phone number is: " << num.number() << endl;
+            for (int j = 0; j < u.usernotes_size(); j++)
+            {
+                cout << "Note " << j + 1 << endl;
+                cout << "----------------------------------" << endl;
+                cout << u.usernotes(j).text() << endl;
+                cout << "-------------------------------" << endl;
+
+            }
+            SEPARATOR;
+
+        }
+
+        /*cout << "CLIENT: " << buf << endl;
         cout << "Appending 'Hello' to input... and sending..." << endl;
         string output = "Hello " + (string)buf;
         char* toClient = &output[0];
         send(nClientSocket, toClient, 256, 0);
         memset(buf, ' ', 256);
-        SEPARATOR;
+        SEPARATOR;*/
     }
 }
 
 
 
-void processNewRequest(int &nSocket)
+void processNewRequest(int &nSocket, tutorial::UserTextList& userlist)
 {
     bool flag = FALSE;
     int cliIndex;
@@ -84,7 +118,7 @@ void processNewRequest(int &nSocket)
             if (FD_ISSET(nClientArr[i], &fr))
             {
                 //Get the new message from the client using recv and process it
-                processNewMessage(nClientArr[i]);
+                processNewMessage(nClientArr[i], userlist);
             }
         }
     }
@@ -97,6 +131,14 @@ void processNewRequest(int &nSocket)
 
 int main()
 {
+
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+    tutorial::UserTextList users;
+
+
+
+
     int nRet = 0;
 
     //Initialise the WSA variables (for windows)
@@ -132,17 +174,24 @@ int main()
         cout << "Socket Descriptor ID: " << nSocket << endl;
     }
 
+    //Fetching Host Details
+    struct hostent* srvHost = getHostDetails();
+    struct in_addr addr;
+    addr.s_addr = *(u_long*)srvHost->h_addr_list[0];
+    cout << "Host IP address - " << inet_ntoa(addr) << endl;
+
     //Initialise the environment for sockaddr structure
-    srv.sin_family = AF_INET;
+    srv.sin_family = srvHost->h_addrtype;
     srv.sin_port = htons(PORT);
-    srv.sin_addr.s_addr = INADDR_ANY; //assign ip address of this machine to s_addr
+    srv.sin_addr.s_addr = INADDR_ANY;
+    //srv.sin_addr.s_addr = addr.s_addr; //assign ip address of this machine to s_addr
     //srv.sin_addr.s_addr = inet_addr("127.0.0.1"); //another way to do the above, inet_addr converts string to byte order
 
     memset(&srv.sin_zero, 0, sizeof(srv.sin_zero));
 
     //Setting Socket Options
 
-    int nOptVal = 0;
+    int nOptVal = 0;// Allowing other servers to bind and listen to the port, but not accept new connections
     int nOptLen = sizeof(nOptVal);
     nRet = setsockopt(nSocket, SOL_SOCKET, SO_REUSEADDR, (const char*)&nOptVal, nOptLen);
 
@@ -161,7 +210,7 @@ int main()
 
     //Bind the socket to the local port
 
-    nRet = bind(nSocket, (sockaddr*)&srv, sizeof(sockaddr));
+    nRet = ::bind(nSocket, (sockaddr*)&srv,(int) sizeof(sockaddr));
 
     if (nRet < 0)
     {
@@ -230,7 +279,7 @@ int main()
             cout << "Data on port... Processing now..." << endl;
             
             //Process client data here
-            processNewRequest(nSocket);
+            processNewRequest(nSocket,users);
        
         }
         else if (nRet == 0)

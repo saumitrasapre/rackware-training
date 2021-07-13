@@ -1,2 +1,9 @@
-﻿  Protobuf.cpp
+﻿  Phone.pb.cc
+D:\Code\Protobuf\Protobuf\Phone.pb.cc(757,66): warning C4244: '=': conversion from 'google::protobuf::uint64' to 'google::protobuf::int32', possible loss of data
+C:\protobuf\install\include\google\protobuf\has_bits.h(73,41): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\protobuf\install\include\google\protobuf\has_bits.h(72): message : while compiling class template member function 'void google::protobuf::internal::HasBits<1>::Or(const google::protobuf::internal::HasBits<1> &)'
+D:\Code\Protobuf\Protobuf\Phone.pb.cc(296): message : see reference to function template instantiation 'void google::protobuf::internal::HasBits<1>::Or(const google::protobuf::internal::HasBits<1> &)' being compiled
+C:\protobuf\install\include\google\protobuf\has_bits.h(83): message : see reference to class template instantiation 'google::protobuf::internal::HasBits<1>' being compiled
+  Protobuf.cpp
+  Generating Code...
   Protobuf.vcxproj -> D:\Code\Protobuf\x64\Debug\Protobuf.exe
