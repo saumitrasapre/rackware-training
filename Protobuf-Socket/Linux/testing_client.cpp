@@ -15,95 +15,139 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 #include <fstream>
+
+#define PORT 12345
+#define SEPARATOR cout<<"============================================="<<endl
+
 using namespace std;
 
 
 
-void takePersonInput(tutorial::User* user)
+class Client
 {
-    //Function to accept user input which includes name, phone number and a list of messages
-    //Stores information in tutorial::User object
-    string name, number, msg;
-    cout << "Enter the Person's name: " << endl;
-    getline(cin, name);
-    user->set_name(name);
-    cout << "Enter the Person's phone number: " << endl;
-    getline(cin, number);
-    tutorial::PhoneNumber* num = new tutorial::PhoneNumber();
+    private:
+    int clientSd;
+    sockaddr_in sendSockAddr; 
 
-    num->set_number(number);
-    user->set_allocated_phone(num);
-    cout << "Enter the message you want to store: (LEAVE BLANK TO EXIT) " << endl;
-    while (true)
+
+    public:
+
+    void initialiseSocket()
     {
-        cout << "> ";
-        getline(cin, msg);
-        if (msg.empty())
+        //Initialising the socket
+        this->clientSd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+        
+        if (this->clientSd < 0)
         {
-            break;
+            cout << "Failed to open the socket... " << endl;
+            exit(0);
         }
-        tutorial::Notes* note = user->add_usernotes();
-        note->set_text(msg);
+        else
+        {
+            cout << "Socket opened successfully... " << endl;
+            cout << "Socket Descriptor ID: " << this->clientSd << endl;
+        }
+
     }
-}
+
+    void initialiseSocketEnv()
+    {
+        //Initialise the environment for sockaddr structure
+        bzero((char*)&this->sendSockAddr, sizeof(this->sendSockAddr)); 
+        this->sendSockAddr.sin_family = AF_INET; 
+        this->sendSockAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+        this->sendSockAddr.sin_port = htons(PORT);
+
+    }
+
+    int connectToServer()
+    {
+        //Connect to server
+        int connectStatus = connect(this->clientSd,(sockaddr*) &this->sendSockAddr, sizeof(this->sendSockAddr));
+        return connectStatus;
+    }
+
+    int getclientSd()
+    {
+        return this->clientSd;
+    }
+
+    void takePersonInput(tutorial::User* user)
+    {
+        //Function to accept user input which includes name, phone number and a list of messages
+        //Stores information in tutorial::User object
+        string name, number, msg;
+        cout << "Enter the Person's name: " << endl;
+        getline(cin, name);
+        user->set_name(name);
+        cout << "Enter the Person's phone number: " << endl;
+        getline(cin, number);
+        tutorial::PhoneNumber* num = new tutorial::PhoneNumber();
+
+        num->set_number(number);
+        user->set_allocated_phone(num);
+        cout << "Enter the message you want to store: (LEAVE BLANK TO EXIT) " << endl;
+        while (true)
+        {
+            cout << "> ";
+            getline(cin, msg);
+            if (msg.empty())
+            {
+                break;
+            }
+            tutorial::Notes* note = user->add_usernotes();
+            note->set_text(msg);
+        }
+    }
 
 
 
 
+};
 
-//Client side
+
 int main(int argc, char *argv[])
 {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
     tutorial::UserTextList users;
+    Client cli;
+    char msg[1500]; //create a message buffer 
 
+    cli.initialiseSocket();
+    cli.initialiseSocketEnv();
 
-
-    //we need 2 things: ip address and port number, in that order
-    if(argc != 3)
+    if(cli.connectToServer() < 0)
     {
-        cerr << "Usage: ip_address port" << endl; exit(0); 
-    } //grab the IP address and port number 
-    char *serverIp = argv[1]; int port = atoi(argv[2]); 
-    //create a message buffer 
-    char msg[1500]; 
-    //setup a socket and connection tools 
-    struct hostent* host = gethostbyname(serverIp); 
-    sockaddr_in sendSockAddr;   
-    bzero((char*)&sendSockAddr, sizeof(sendSockAddr)); 
-    sendSockAddr.sin_family = AF_INET; 
-    sendSockAddr.sin_addr.s_addr = 
-        inet_addr(inet_ntoa(*(struct in_addr*)*host->h_addr_list));
-    sendSockAddr.sin_port = htons(port);
-    int clientSd = socket(AF_INET, SOCK_STREAM, 0);
-    //try to connect...
-    int status = connect(clientSd,
-                         (sockaddr*) &sendSockAddr, sizeof(sendSockAddr));
-    if(status < 0)
-    {
-        cout<<"Error connecting to socket!"<<endl;
+        cout << "Failed to connect to the server..." << endl;
+        exit(0);
     }
-    cout << "Connected to the server!" << endl;
-    int bytesRead, bytesWritten = 0;
+    else
+    {
+        cout << "Connected to the server!" << endl;
+
+        int bytesRead, bytesWritten = 0;
 
         string data;
         memset(&msg, 0, sizeof(msg));//clear the buffer
 
-        takePersonInput(users.add_users());
+        cli.takePersonInput(users.add_users());
         users.AppendToString(&data);
 
         strcpy(msg, data.c_str());
-        bytesWritten += send(clientSd, (char*)&msg, strlen(msg), 0);
+        bytesWritten += send(cli.getclientSd(), (char*)&msg, strlen(msg), 0);
 
         cout << "Awaiting server response..." << endl;
         memset(&msg, 0, sizeof(msg));//clear the buffer
+
         // bytesRead += recv(clientSd, (char*)&msg, sizeof(msg), 0);
 
-    close(clientSd);
-    cout << "********Session********" << endl;
-    cout << "Bytes written: " << bytesWritten << 
-    " Bytes read: " << bytesRead << endl;
+    close(cli.getclientSd());
+    cout << "********Session Ended********" << endl;
+    cout << "Bytes written: " << bytesWritten << " Bytes read: " << bytesRead << endl;
     cout << "Connection closed" << endl;
+    }
+    
+    
     return 0;    
 }
