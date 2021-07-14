@@ -10,3 +10,9 @@ TO COMPILE C++ CODE
 g++ -std=c++17 C_file.cpp protofile.pb.cc -o binaryfilename `pkg-config --cflags --libs protobuf`
 
 (remember to use `)
+
+
+References- 
+1. https://www.youtube.com/watch?v=j-lEoC0DWI8
+2. https://www.youtube.com/watch?v=5O4SLIDSMqg
+3. https://www.youtube.com/watch?v=yo2i7UdNmiY
