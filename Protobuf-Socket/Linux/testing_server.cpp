@@ -15,6 +15,7 @@
 #include <sys/wait.h>
 #include <fcntl.h>
 #include <fstream>
+#include <cstring>
 
 #define PORT 12345
 #define SEPARATOR cout<<"============================================="<<endl
@@ -28,7 +29,20 @@ class Server
     int serverSd;
     sockaddr_in servAddr;
 
+    int newSd;
+    sockaddr_in newSockAddr;
+    socklen_t newSockAddrSize = sizeof(newSockAddr);
+
     public:
+
+    int getserverSd()
+    {
+        return this->serverSd;
+    }
+    int getnewSd()
+    {
+        return this->newSd;
+    }
 
     void initialiseSocket()
     {
@@ -91,12 +105,7 @@ class Server
             cout << "Waiting for a client to connect..." << endl;
         }
 
-    }
-
-    int getserverSd()
-    {
-        return this->serverSd;
-    }
+    }   
 
     void listenSocket()
     {
@@ -116,6 +125,24 @@ class Server
         {
             cout << "Socket listening on local port " << ntohs(this->servAddr.sin_port) << "... " << endl;
 
+        }
+    }
+
+    void connectSocket()
+    {
+
+        //Accept, create a new socket descriptor to 
+        //handle the new connection with client
+
+        this->newSd = accept(this->serverSd, (sockaddr *)&this->newSockAddr, &this->newSockAddrSize);
+        if(this->newSd < 0)
+        {
+            cerr << "Error accepting request from client!" << endl;
+            exit(1);
+        }
+        else
+        {
+            cout << "Connected with client!" << endl;
         }
     }
 
@@ -142,8 +169,35 @@ class Server
         }
     }
 
+    string execScript(tutorial::UserTextList &userlist)
+    {
+            FILE* in;
+            char buff[256];
+            string command;
+            string output;
+            tutorial::User u = userlist.users(0);
+            tutorial::PhoneNumber num = u.phone();
+            command = "./some_script.sh -n '" + u.name() + "' -p '" + num.number() + "' -o '" + u.usernotes(0).text() + "' -t '" + u.usernotes(1).text()+"'";
+            cout<<"Executing script... "<<endl;
+            cout<<"No. of characters- ";
+            if(!(in = popen(command.c_str(), "r")))
+                    {
+                            cout<<"Script Failed"<<endl;
+                            exit(0);
+                    }   
+            else
+                    {
+                            while(fgets(buff,sizeof(buff),in)!=NULL)
+                                    {
+                                            output += buff;
+                                            //cout<<buff<<endl;
+                                    }
 
-
+                            pclose(in);
+                    }
+                 cout<<output<<endl;
+            return output;
+    }
 
 };
 
@@ -157,52 +211,41 @@ int main(int argc, char *argv[])
     Server srv;
     char msg[1500]; //buffer to send and receive messages with
 
+    int bytesRead, bytesWritten = 0;
+
     srv.initialiseSocket();
     srv.initialiseSocketEnv();
     srv.setSocketOptions();
     srv.bindSocket();
     srv.listenSocket();
+    srv.connectSocket();
 
-   
-    //Receive requests from client using accept
-    //we need a new address to connect with the client
-    sockaddr_in newSockAddr;
-    socklen_t newSockAddrSize = sizeof(newSockAddr);
 
-    //Accept, create a new socket descriptor to 
-    //handle the new connection with client
 
-    int newSd = accept(srv.getserverSd(), (sockaddr *)&newSockAddr, &newSockAddrSize);
-    if(newSd < 0)
-    {
-        cerr << "Error accepting request from client!" << endl;
-        exit(1);
-    }
-    else
-    {
-        cout << "Connected with client!" << endl;
-    }
-    
-    int bytesRead, bytesWritten = 0;
-    
-    //receive a message from the client (listen)
+    //Connected with client, now receive a message from the client (listen)
+
     cout << "Awaiting client response..." << endl;
     memset(&msg, 0, sizeof(msg));//clear the buffer
 
 
-    bytesRead += recv(newSd, (char*)&msg, sizeof(msg), 0);
+    bytesRead += recv(srv.getnewSd(), (char*)&msg, sizeof(msg), 0);
 
     string data(msg);
     users.ParseFromString(data);
 
     srv.displayDetails(users);
 
-    
-    //send the message to client
-    // bytesWritten += send(newSd, (char*)&msg, strlen(msg), 0);
+    strcpy(msg,srv.execScript(users).c_str());
+
+    SEPARATOR;
+
+    //Send the message to client
+
+    cout<<"Sending message to client... "<<endl;
+    bytesWritten += send(srv.getnewSd(), (char*)&msg, strlen(msg), 0);
     
     //we need to close the socket descriptors after we're all done
-    close(newSd);
+    close(srv.getnewSd());
     close(srv.getserverSd());
     cout << "********Session Ended********" << endl;
     cout << "Bytes written: " << bytesWritten << " Bytes read: " << bytesRead << endl;

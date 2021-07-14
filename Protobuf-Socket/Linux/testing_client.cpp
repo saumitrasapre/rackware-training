@@ -86,10 +86,10 @@ class Client
 
         num->set_number(number);
         user->set_allocated_phone(num);
-        cout << "Enter the message you want to store: (LEAVE BLANK TO EXIT) " << endl;
-        while (true)
+        cout << "Enter the messages you want to store:" << endl;
+        for(int i=0;i<2;i++)
         {
-            cout << "> ";
+            cout << "Message "<<i+1<<"> ";
             getline(cin, msg);
             if (msg.empty())
             {
@@ -136,11 +136,14 @@ int main(int argc, char *argv[])
 
         strcpy(msg, data.c_str());
         bytesWritten += send(cli.getclientSd(), (char*)&msg, strlen(msg), 0);
-
+        SEPARATOR;
+        //Reading from server...
         cout << "Awaiting server response..." << endl;
         memset(&msg, 0, sizeof(msg));//clear the buffer
 
-        // bytesRead += recv(clientSd, (char*)&msg, sizeof(msg), 0);
+        bytesRead += recv(cli.getclientSd(), (char*)&msg, sizeof(msg), 0);
+
+        cout<<"SERVER: Number of characters..." <<msg<<endl;
 
     close(cli.getclientSd());
     cout << "********Session Ended********" << endl;
