@@ -11,6 +11,9 @@ g++ -std=c++17 C_file.cpp protofile.pb.cc -o binaryfilename `pkg-config --cflags
 
 (remember to use `)
 
+export LD_LIBRARY_PATH=/usr/local/lib64
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
+
 
 References- 
 1. https://www.youtube.com/watch?v=j-lEoC0DWI8
