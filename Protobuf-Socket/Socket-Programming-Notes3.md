@@ -5,7 +5,7 @@ Most of the steps in the client code are similar to the server code. The initial
 Refer [this](Protobuf-Socket-Client/Protobuf-Socket-Client/Protobuf-Socket-Client.cpp) program for the actual code.
 
 ```
-NOTE - While specifying the sin_addr.s_addr property in the client program, we need to specify the server's IP address using inet_addr("127.0.0.1") and not using INADDR_ANY.
+NOTE FOR WINDOWS- While specifying the sin_addr.s_addr property in the client program, we need to specify the server's IP address using inet_addr("127.0.0.1") and not using INADDR_ANY.
 ```
 
 Which means that this-

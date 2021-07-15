@@ -1,6 +1,6 @@
 # Windows Management Instrumentation (WMI)
 
-Windows Management Instrumentation (`WMI`) is a susbsytem of Windows Powershell that gives administrators access to powerful system monitoring tools. It is basically a management interface that can access data in great detail about a computer.
+Windows Management Instrumentation (`WMI`) is a subsystem of Windows Powershell that gives administrators access to powerful system monitoring tools. It is basically a management interface that can access data in great detail about a computer.
 
 It is built upon the Common Information Model (`CIM`), which is an open-source standard for accessing and displaying information about a computer. It is an industry standard that’s been around for many years, but it has no method included to access data on a remote computer. WMI is Microsoft’s version of `CIM`. 
 

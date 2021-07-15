@@ -248,7 +248,7 @@ int main(int argc, char *argv[])
     close(srv.getnewSd());
     close(srv.getserverSd());
     cout << "********Session Ended********" << endl;
-    cout << "Bytes written: " << bytesWritten << " Bytes read: " << bytesRead << endl;
+    //cout << "Bytes written: " << bytesWritten << " Bytes read: " << bytesRead << endl;
     cout << "Connection closed..." << endl;
     return 0;   
 }

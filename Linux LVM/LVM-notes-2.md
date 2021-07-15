@@ -29,7 +29,7 @@ However, our mounted drive summary (using `df -h`) still does not show the drive
 
 ![Mount status after vgextend](images/dfh_after_vgextend.png)
 
-This is because we haven't yet created a logical volume from the volume group. It is necessare to either create a new LV or extend an existing LV for them to be recognised in the `df -h` command.
+This is because we haven't yet created a logical volume from the volume group. It is necessary to either create a new LV or extend an existing LV for them to be recognised in the `df -h` command.
 
 Thus, we currently have:
 

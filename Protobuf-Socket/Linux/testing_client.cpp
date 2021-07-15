@@ -147,7 +147,7 @@ int main(int argc, char *argv[])
 
     close(cli.getclientSd());
     cout << "********Session Ended********" << endl;
-    cout << "Bytes written: " << bytesWritten << " Bytes read: " << bytesRead << endl;
+    //cout << "Bytes written: " << bytesWritten << " Bytes read: " << bytesRead << endl;
     cout << "Connection closed" << endl;
     }
     

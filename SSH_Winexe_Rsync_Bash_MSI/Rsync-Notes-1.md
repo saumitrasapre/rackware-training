@@ -95,6 +95,7 @@ We can check that we got the files on our remote machine -
 # References - 
 1. https://www.youtube.com/watch?v=qE77MbDnljA
 2. https://www.youtube.com/watch?v=2PnAohLS-Q4
-3.  https://stackoverflow.com/questions/818255/in-the-shell-what-does-21-mean
-4.  https://serverfault.com/questions/835104/what-does-connecttimeout-in-ssh-config-mean
+3. https://stackoverflow.com/questions/818255/in-the-shell-what-does-21-mean
+4. https://serverfault.com/questions/835104/what-does-connecttimeout-in-ssh-config-mean
 5. https://www.perturb.org/display/1208_SSH_Batch_mode_for_SSH_SCP_scripting.html 
+6. https://stackoverflow.com/questions/7411052/bash-while-loop-iterates-only-once-whenever-body-contains-ssh

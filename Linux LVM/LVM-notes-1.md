@@ -10,7 +10,7 @@ Logical volume manager (LVM) introduces an extra layer between the physical disk
 ![LVM Structure](images/LVM-basic-structure.png)
 
 ### Physical Volume (PV)-
-Physical Volume can be a disk partition, the whole disk, a meta-device, or a loopback file, e.g. `/dev/sda`, `/dev/sdb` and so on.   Here we can basically tell LVM that we're going to use this particular partition for LVM. 
+Physical Volume can be a disk partition, the whole disk, a meta-device, or a loopback file, e.g. `/dev/sda`, `/dev/sdb` and so on. Here we can basically tell LVM that we're going to use this particular partition for LVM. 
 Using the command `pvcreate` storage can be initialized for use by LVM.
 
 ### Volume Group (VG)-
