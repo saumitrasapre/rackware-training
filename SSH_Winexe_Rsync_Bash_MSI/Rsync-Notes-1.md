@@ -11,4 +11,8 @@ Another scenario would be when you lose your network connection in the middle of
 
 # References - 
 1. https://www.youtube.com/watch?v=qE77MbDnljA
-2. 
+2. https://www.youtube.com/watch?v=2PnAohLS-Q4
+
+a. https://stackoverflow.com/questions/818255/in-the-shell-what-does-21-mean
+b. https://serverfault.com/questions/835104/what-does-connecttimeout-in-ssh-config-mean
+c. https://www.perturb.org/display/1208_SSH_Batch_mode_for_SSH_SCP_scripting.html 
