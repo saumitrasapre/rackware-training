@@ -3,6 +3,12 @@
 A powershell script is simply a list of commands that Windows powershell executes one after the other. It is built on the built on the .NET Common Language Runtime (CLR). The PowerShell commands are called `cmdlets`. These `cmdlets` let us manage our computers from the command line. 
 
 # Basic Commands
+
+```
+NOTE: By default, executing powershell scripts is disabled on a client version of Windows (Like Windows 10). If we want to execute scripts there, we must set the "Execution Policy".
+This can be done using - Set-ExecutionPolicy RemoteSigned OR Set-ExecutionPolicy Unrestricted
+
+```
 Before we begin writing the powershell script to sort our logical disks, we need to get ourselves acquainted with the basic input/output commands. Refer to [this](hello_world.ps1) program for the code.
 
 ```
