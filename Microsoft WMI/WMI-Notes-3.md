@@ -49,7 +49,7 @@ The output looks like:
 
 But, if we try to do the same with `Write-Host`...
 ```
-Write-Output "Hello World"|Receive-Output
+Write-Host "Hello World"|Receive-Output
 ```
 ![write_host](images/write-host.png)
 
